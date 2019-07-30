@@ -7,6 +7,7 @@ class RecipeSummary extends React.Component {
     this.state = {
       theTitle: "",
       theSummary: "",
+      ready: false
     }
 
   }
@@ -18,7 +19,8 @@ class RecipeSummary extends React.Component {
         console.log(theThing.summary)
         this.setState({
           theTitle: theThing.title,
-          theSummary: theThing.summary
+          theSummary: theThing.summary,
+          ready: true,
         })
       })
   }
@@ -30,18 +32,23 @@ class RecipeSummary extends React.Component {
   }
 
   render() {
-    console.log(this.props)
-    return (
-      <div>
+    if (this.state.ready)
+      return (
         <div>
-          {this.state.theTitle}
-        </div>
+          <div>
+            {this.state.theTitle}
+          </div>
 
-        <div>
-          {this.state.theSummary}
+          <div>
+            {this.state.theSummary}
+          </div>
         </div>
-      </div>
-    )
+      )
+    else {
+      return (
+        <div>Loading...</div>
+      )
+    }
   }
 
 }
