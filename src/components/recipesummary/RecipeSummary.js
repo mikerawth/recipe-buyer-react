@@ -64,6 +64,10 @@ class RecipeSummary extends React.Component {
     })
   }
 
+  addIngredientsToCart = () => {
+    this.props.foodService.addIngredients(this.state.theIngredients, this.recipeID)
+  }
+
 
   componentDidMount() {
     this.getRecipeSummary();
@@ -94,6 +98,10 @@ class RecipeSummary extends React.Component {
               {this.displayRecipeInstructions()}
             </ol>
           </div>
+
+          <button onClick={this.addIngredientsToCart}>Add Ingredients</button>
+
+
         </div>
       )
     else {

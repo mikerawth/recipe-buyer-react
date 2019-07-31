@@ -34,6 +34,11 @@ class FoodService {
     return this.service.get(`/recipes/${recipeID}/instructions`)
       .then(response => response.data)
   }
+
+  addIngredients = (theIngredients, apiID) => {
+    return this.service.post('/cart/addIngredients', { theIngredients, apiID })
+      .then(response => response.data)
+  }
 }
 
 export default FoodService

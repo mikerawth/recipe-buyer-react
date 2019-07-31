@@ -10,20 +10,10 @@ class CartService {
   }
 
   addIngredients = (theIngredients, apiID) => {
-    theIngredients.forEach((eachIngredient) => {
-      return this.service.post('/addIngredients',
-        {
-          name: eachIngredient.name,
-          usAmount: eachIngredient.amount.us.value,
-          usUnit: eachIngredient.amount.us.unit,
-          metricAmount: eachIngredient.amount.metric.value,
-          metricUnit: eachIngredient.amount.metric.unit,
-          recipeApiID: apiID
-        })
-        .then(response => response.data)
-
-    })
+    return this.service.post('/addIngredients', { theIngredients, apiID })
+      .then(response => response.data)
   }
+
 
 }
 
