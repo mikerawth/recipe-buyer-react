@@ -14,7 +14,10 @@ class CartService {
       .then(response => response.data)
   }
 
-
+  grabIngredients = () => {
+    return this.service.get('/getIngredients')
+      .then(response => response.data)
+  }
 }
 
 export default CartService;

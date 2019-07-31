@@ -18,6 +18,7 @@ function Navbar(props) {
       <ul>
         <li><NavLink to="/main">Main Page</NavLink></li>
         <li><NavLink to="/recipes">Recipes</NavLink></li>
+        <li><NavLink to="/cart">Cart</NavLink></li>
 
         {!props.theUser &&
           <span>

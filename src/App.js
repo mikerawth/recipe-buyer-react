@@ -3,11 +3,13 @@ import './App.css';
 import { Switch, Route } from 'react-router-dom'
 
 import FoodService from './services/FoodService'
+import CartService from './services/CartService'
 
 import Navbar from './components/navbar/Navbar'
 import Main from './components/main/Main'
 import RecipeSearch from './components/recipesearch/RecipeSearch';
 import RecipeSummary from './components/recipesummary/RecipeSummary'
+import Cart from './components/cart/Cart'
 
 import AuthService from './services/AuthService.js';
 import Signup from './components/signup/Signup.js';
@@ -22,6 +24,7 @@ class App extends React.Component {
     }
     this.foodService = new FoodService()
     this.authService = new AuthService()
+    this.cartService = new CartService()
   }
 
   getCurrentlyLoggedInUser = () => {
@@ -82,6 +85,11 @@ class App extends React.Component {
               {...props}
               currentRecipeID={this.state.currentRecipeID}
               foodService={this.foodService}
+              cartService={this.cartService}
+            />} />
+
+          <Route exact path="/cart" render={(props) =>
+            <Cart
             />} />
         </Switch>
       </div>

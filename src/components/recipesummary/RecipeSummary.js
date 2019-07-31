@@ -65,7 +65,7 @@ class RecipeSummary extends React.Component {
   }
 
   addIngredientsToCart = () => {
-    this.props.foodService.addIngredients(this.state.theIngredients, this.recipeID)
+    this.props.cartService.addIngredients(this.state.theIngredients, this.recipeID)
   }
 
 
