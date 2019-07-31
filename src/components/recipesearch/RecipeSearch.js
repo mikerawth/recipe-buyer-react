@@ -13,20 +13,16 @@ class RecipeSearch extends Component {
   }
 
   handleChange = (e) => {
-    console.log("handle change is occurring")
     this.setState({ [e.target.name]: e.target.value })
   }
 
   searchRecipe = (e) => {
-    console.log("searching for recipes")
     e.preventDefault();
     const rSearch = this.state.recipeName;
-    console.log(rSearch)
 
 
     this.service.searchRecipes(rSearch)
       .then((searchResults) => {
-        console.log("state is changing")
         this.setState({
           searchResults: searchResults,
         })
@@ -68,7 +64,6 @@ class RecipeSearch extends Component {
         </form>
 
 
-        {console.log(this.state.searchResults)}
         {this.displayRecipeSearchResults()}
       </div>
     )
