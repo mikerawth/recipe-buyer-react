@@ -16,20 +16,10 @@ class RecipeSummary extends React.Component {
   getRecipeSummary = () => {
     this.props.foodService.getRecipeSummary(this.recipeID)
       .then((theThing) => {
-        let grabbedIngredients = theThing.extendedIngredients.map((eachI) => {
-          return ({
-            spoonID: eachI.id,
-            name: eachI.name,
-            usAmount: eachI.measures.us.amount,
-            usUnit: eachI.measures.us.unitLong,
-            metricAmount: eachI.measures.metric.amount,
-            metricUnit: eachI.measures.metric.unitLong,
-          })
-        })
         this.setState({
           theTitle: theThing.title,
-          theIngredients: grabbedIngredients,
-          theInstructions: theThing.analyzedInstructions[0].steps,
+          theIngredients: theThing.ingredients,
+          theInstructions: theThing.instructions,
           ready: true,
         }, () => console.log("theThing", theThing))
       })
