@@ -37,7 +37,9 @@ class Cart extends React.Component {
 
   render() {
     return (
-      <div>{this.displayCartIngredients()}</div>
+      <div>
+        {this.displayCartIngredients()}
+      </div>
     )
   }
 }

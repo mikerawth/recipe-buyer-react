@@ -6,7 +6,6 @@ class RecipeSummary extends React.Component {
     super(props)
     this.state = {
       theTitle: "",
-      theSummary: [],
       theIngredients: [],
       theInstructions: [],
       ready: false
@@ -17,40 +16,32 @@ class RecipeSummary extends React.Component {
   getRecipeSummary = () => {
     this.props.foodService.getRecipeSummary(this.recipeID)
       .then((theThing) => {
+        let grabbedIngredients = theThing.extendedIngredients.map((eachI) => {
+          return ({
+            spoonID: eachI.id,
+            name: eachI.name,
+            usAmount: eachI.measures.us.amount,
+            usUnit: eachI.measures.us.unitLong,
+            metricAmount: eachI.measures.metric.amount,
+            metricUnit: eachI.measures.metric.unitLong,
+          })
+        })
         this.setState({
           theTitle: theThing.title,
-          theSummary: [theThing.summary],
+          theIngredients: grabbedIngredients,
+          theInstructions: theThing.analyzedInstructions[0].steps,
           ready: true,
-        })
+        }, () => console.log("theThing", theThing))
       })
   }
-
-  getRecipeIngredients = () => {
-    this.props.foodService.getRecipeIngredients(this.recipeID)
-      .then((theReturn) => {
-        let arr = theReturn.ingredients.map((eachIngredient) => {
-          return eachIngredient
-        })
-        this.setState({ theIngredients: arr })
-
-      })
-  }
-
-  getRecipeInstructions = () => {
-    this.props.foodService.getRecipeInstructions(this.recipeID)
-      .then((theInstructionQuery) => {
-        this.setState({ theInstructions: theInstructionQuery[0].steps })
-      })
-  }
-
 
   displayRecipeIngredients = () => {
     return this.state.theIngredients.map((eachIngredient, i) => {
       return (
         <div key={i}>
           <span className="ingredient-name">{eachIngredient.name} / </span>
-          <span className="ingredient-amount-us">{eachIngredient.amount.us.value}{eachIngredient.amount.us.unit} / </span>
-          <span className="ingredient-amount-metric">{eachIngredient.amount.metric.value}{eachIngredient.amount.metric.unit}</span>
+          <span className="ingredient-amount-us">{eachIngredient.usAmount}{eachIngredient.usUnit} / </span>
+          <span className="ingredient-amount-metric">{eachIngredient.metricAmount}{eachIngredient.metricUnit}</span>
         </div>
       )
     })
@@ -65,14 +56,12 @@ class RecipeSummary extends React.Component {
   }
 
   addIngredientsToCart = () => {
-    this.props.cartService.addIngredients(this.state.theIngredients, this.recipeID)
+    this.props.cartService.addIngredients(this.state.theIngredients, this.recipeID, this.state.theTitle)
   }
 
 
   componentDidMount() {
     this.getRecipeSummary();
-    this.getRecipeIngredients();
-    this.getRecipeInstructions();
   }
 
 
@@ -81,7 +70,6 @@ class RecipeSummary extends React.Component {
     if (this.state.ready)
       return (
         <div>
-          {console.log(this.state.theIngredients)}
           <div className="recipe-name">
             <h2>{this.state.theTitle}</h2>
           </div>

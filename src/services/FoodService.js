@@ -21,15 +21,17 @@ class FoodService {
   }
 
   getRecipeSummary = (recipeID) => {
-    return this.service.get(`/recipes/${recipeID}/summary`)
+    return this.service.get(`/recipes/${recipeID}/information`)
       .then(response => response.data)
   }
 
+  // CHANGE TO GET PRICE OF RECIPE'S INGREDIENTS
   getRecipeIngredients = (recipeID) => {
     return this.service.get(`/recipes/${recipeID}/ingredients`)
       .then(response => response.data)
   }
 
+  // DO NOT USE
   getRecipeInstructions = (recipeID) => {
     return this.service.get(`/recipes/${recipeID}/instructions`)
       .then(response => response.data)
