@@ -76,6 +76,7 @@ class App extends React.Component {
 
           <Route exact path="/recipes" render={(props) =>
             <RecipeSearch
+              {...props}
               setCurrentRecipe={this.setCurrentRecipe}
               currentRecipeID={this.state.currentRecipeID}
             />} />

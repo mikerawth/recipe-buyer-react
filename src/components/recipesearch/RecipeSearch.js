@@ -23,8 +23,10 @@ class RecipeSearch extends Component {
 
     this.service.searchRecipes(rSearch)
       .then((searchResults) => {
+        console.log(searchResults)
         this.setState({
-          searchResults: searchResults,
+          searchResults: searchResults.results,
+
         })
       })
 

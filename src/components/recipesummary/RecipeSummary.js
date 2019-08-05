@@ -8,6 +8,7 @@ class RecipeSummary extends React.Component {
       theTitle: "",
       theIngredients: [],
       theInstructions: [],
+      theTags: [],
       ready: false
     }
     this.recipeID = this.props.match.params.recipeID
@@ -20,6 +21,7 @@ class RecipeSummary extends React.Component {
           theTitle: theThing.title,
           theIngredients: theThing.ingredients,
           theInstructions: theThing.instructions,
+          theTags: theThing.tags,
           ready: true,
         }, () => console.log("theThing", theThing))
       })
@@ -45,7 +47,16 @@ class RecipeSummary extends React.Component {
     })
   }
 
+  displayRecipeTags = () => {
+    return this.state.theTags.map((eachTag, i) => {
+      return (
+        <li key={i}>{eachTag}</li>
+      )
+    })
+  }
+
   addIngredientsToCart = () => {
+    console.log(this.state.theIngredients, this.recipeID, this.state.theTitle)
     this.props.cartService.addIngredients(this.state.theIngredients, this.recipeID, this.state.theTitle)
   }
 
@@ -74,6 +85,13 @@ class RecipeSummary extends React.Component {
             <h3>Directions</h3>
             <ol>
               {this.displayRecipeInstructions()}
+            </ol>
+          </div>
+
+          <div className="recipe-tags">
+            <h3>Tags</h3>
+            <ol>
+              {this.displayRecipeTags()}
             </ol>
           </div>
 
