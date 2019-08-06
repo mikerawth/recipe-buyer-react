@@ -1,11 +1,14 @@
 import React from 'react';
 import CartService from '../../services/CartService'
 
+import CartRecipe from '../cartrecipe/CartRecipe'
+
 class Cart extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       cartIngredients: [],
+      cartRecipes: [],
     }
     this.cartService = new CartService()
   }
@@ -13,23 +16,28 @@ class Cart extends React.Component {
   getCartIngredients = () => {
     this.cartService.grabIngredients()
       .then((allIngredients) => {
-        this.setState({ cartIngredients: allIngredients },
-          () => console.log("cart ingredients", this.state.cartIngredients))
+        this.setState({ cartIngredients: allIngredients })
+      })
+  }
+
+  getUsersCart = () => {
+    this.cartService.grabUserAndCart()
+      .then((theUsersInfo) => {
+        // console.log(theUsersInfo.cart)
+        this.setState({ cartRecipes: theUsersInfo.cart })
       })
   }
 
   componentDidMount() {
     this.getCartIngredients();
+    this.getUsersCart();
   }
 
-  displayCartIngredients = () => {
-    return this.state.cartIngredients.map((eachIngredient) => {
-      // console.log(eachIngredient)
+  displayCartRecipes = () => {
+    return this.state.cartRecipes.map((eachRecipe) => {
       return (
-        <div key={eachIngredient._id}>
-          <span className="ingredient-name">{eachIngredient.name} / </span>
-          <span className="ingredient-amount-us">{eachIngredient.usAmount}{eachIngredient.usUnit} / </span>
-          <span className="ingredient-amount-metric">{eachIngredient.metricAmount}{eachIngredient.metricAmount}</span>
+        <div key={eachRecipe._id}>
+          <CartRecipe recipeInfo={eachRecipe} />
         </div>
       )
     })
@@ -38,7 +46,7 @@ class Cart extends React.Component {
   render() {
     return (
       <div>
-        {this.displayCartIngredients()}
+        {this.displayCartRecipes()}
       </div>
     )
   }

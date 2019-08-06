@@ -18,6 +18,17 @@ class CartService {
     return this.service.get('/getIngredients')
       .then(response => response.data)
   }
+
+
+  grabUserAndCart = () => {
+    return this.service.get('/usersCart')
+      .then(response => response.data)
+  }
+
+  grabIngredientInfo = (ingID) => {
+    return this.service.get(`/recipeIng/${ingID}`)
+      .then(response => response.data)
+  }
 }
 
 export default CartService;

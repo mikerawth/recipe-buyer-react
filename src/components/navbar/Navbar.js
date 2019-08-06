@@ -17,7 +17,9 @@ function Navbar(props) {
       <div>
         <span>
           <NavLink to="/">Home</NavLink>
-          <NavLink to="/cart">Cart</NavLink>
+          {props.theUser &&
+            <NavLink to="/cart">Cart</NavLink>
+          }
         </span>
       </div>
 
