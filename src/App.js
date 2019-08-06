@@ -18,7 +18,8 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      message: 'test message for state',
+      signupShowing: false,
+      loginShowing: false,
     }
     this.foodService = new FoodService()
     this.authService = new AuthService()
@@ -33,6 +34,18 @@ class App extends React.Component {
       .catch(() => {
         this.setState({ currentlyLoggedIn: null })
       })
+  }
+
+  toggleForm = (whichForm) => {
+    let theForm, otherForm;
+    if (whichForm === "signup") {
+      theForm = 'signupShowing'
+      otherForm = 'loginShowing'
+    } else {
+      theForm = 'loginShowing'
+      otherForm = 'signupShowing'
+    }
+    this.setState({ [theForm]: !this.state[theForm], [otherForm]: false })
   }
 
   // want to remove (using a params to find data)
@@ -52,11 +65,24 @@ class App extends React.Component {
           theUser={this.state.currentlyLoggedIn}
           pleaseLogOut={() => this.authService.logout()}
           getUser={this.getCurrentlyLoggedInUser}
+          toggleForm={this.toggleForm}
         />
+
+        {this.state.signupShowing &&
+          <Signup getUser={this.getCurrentlyLoggedInUser}
+            toggleForm={this.toggleForm}
+          />
+        }
+
+        {this.state.loginShowing &&
+          <Login getUser={this.getCurrentlyLoggedInUser}
+            toggleForm={this.toggleForm}
+          />
+        }
 
         <Switch>
 
-          <Route exact path="/login" render={(props) =>
+          {/* <Route exact path="/login" render={(props) =>
             <Login
               getUser={this.getCurrentlyLoggedInUser}
             />} />
@@ -64,7 +90,7 @@ class App extends React.Component {
           <Route exact path="/signup" render={(props) =>
             <Signup
               getUser={this.getCurrentlyLoggedInUser}
-            />} />
+            />} /> */}
 
 
           <Route exact path="/" render={(props) =>
@@ -72,19 +98,13 @@ class App extends React.Component {
               message={this.state.message}
             />} />
 
-          {/* <Route exact path="/recipes" render={(props) =>
-            <RecipeSearch
-              {...props}
-              setCurrentRecipe={this.setCurrentRecipe}
-              currentRecipeID={this.state.currentRecipeID}
-            />} /> */}
-
           <Route exact path="/recipes/summary/:recipeID" render={(props) =>
             <RecipeSummary
               {...props}
               currentRecipeID={this.state.currentRecipeID}
               foodService={this.foodService}
               cartService={this.cartService}
+              theUser={this.state.currentlyLoggedIn}
             />} />
 
           <Route exact path="/cart" render={(props) =>

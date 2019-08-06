@@ -94,8 +94,9 @@ class RecipeSummary extends React.Component {
               {this.displayRecipeTags()}
             </ol>
           </div>
-
-          <button onClick={this.addIngredientsToCart}>Add Ingredients</button>
+          {this.props.theUser &&
+            <button onClick={this.addIngredientsToCart}>Add Ingredients</button>
+          }
 
 
         </div>

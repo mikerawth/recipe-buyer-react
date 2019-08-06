@@ -56,7 +56,7 @@ class RecipeSearch extends Component {
       <div className="recipe-search-bar">
         <h3>Look Up Recipe</h3>
         <form className="recipe-search-form" onSubmit={this.searchRecipe}>
-          <input value={this.state.recipeName}
+          <input className="recipe-search-input" value={this.state.recipeName}
             name="recipeName"
             onChange={this.handleChange}
           />

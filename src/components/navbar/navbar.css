@@ -5,6 +5,10 @@
   height: 50px;
   width: 100%;
   border-bottom: 1px solid black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
 }
 
 .Navbar > div,

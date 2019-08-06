@@ -1,6 +1,6 @@
 import React from 'react';
 import './navbar.css'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Redirect } from 'react-router-dom'
 
 function Navbar(props) {
 
@@ -26,8 +26,8 @@ function Navbar(props) {
       <div>
         {!props.theUser &&
           <span>
-            <NavLink to="/login">Login</NavLink>
-            <NavLink to="/signup">Signup</NavLink>
+            <button onClick={() => props.toggleForm('login')} > Login </button>
+            <button onClick={() => props.toggleForm('signup')}>Sign Up</button>
           </span>
         }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AuthService from '../../services/AuthService';
+import './login.css'
 
 class Login extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class Login extends Component {
 
     this.service.login(uName, pWord)
       .then(() => {
+        this.props.toggleForm('login');
         this.props.getUser();
       })
 
@@ -28,7 +30,7 @@ class Login extends Component {
 
   render() {
     return (
-      <form onSubmit={this.tryToLogin}>
+      <form className="login-form" onSubmit={this.tryToLogin}>
 
         <h3>Login</h3>
 
