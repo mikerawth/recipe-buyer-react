@@ -7,7 +7,6 @@ import CartService from './services/CartService'
 
 import Navbar from './components/navbar/Navbar'
 import Main from './components/main/Main'
-import RecipeSearch from './components/recipesearch/RecipeSearch';
 import RecipeSummary from './components/recipesummary/RecipeSummary'
 import Cart from './components/cart/Cart'
 
@@ -20,7 +19,6 @@ class App extends React.Component {
     super(props)
     this.state = {
       message: 'test message for state',
-      currentRecipeID: '',
     }
     this.foodService = new FoodService()
     this.authService = new AuthService()
@@ -69,17 +67,17 @@ class App extends React.Component {
             />} />
 
 
-          <Route exact path="/main" render={(props) =>
+          <Route exact path="/" render={(props) =>
             <Main
               message={this.state.message}
             />} />
 
-          <Route exact path="/recipes" render={(props) =>
+          {/* <Route exact path="/recipes" render={(props) =>
             <RecipeSearch
               {...props}
               setCurrentRecipe={this.setCurrentRecipe}
               currentRecipeID={this.state.currentRecipeID}
-            />} />
+            />} /> */}
 
           <Route exact path="/recipes/summary/:recipeID" render={(props) =>
             <RecipeSummary

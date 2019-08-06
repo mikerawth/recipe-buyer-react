@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import FoodService from '../../services/FoodService';
+import './recipesearch.css'
+import RecipeSearchResult from '../recipesearchresult/RecipeSearchResult';
 
 class RecipeSearch extends Component {
   constructor(props) {
@@ -35,12 +36,14 @@ class RecipeSearch extends Component {
   displayRecipeSearchResults = () => {
     return this.state.searchResults.map((eachRecipe, i) => {
       return (
-        <div key={i}>
-          <Link to={`recipes/summary/${eachRecipe.id}`}>
-            {/* <button onClick={() => this.props.setCurrentRecipe(eachRecipe.id)}> */}
-            {eachRecipe.title}
-            {/* </button> */}
-          </Link>
+        <div key={i} className="recipe-search-result">
+          {/* //   <Link to={`recipes/summary/${eachRecipe.id}`}>
+        //     {eachRecipe.title}
+        //   </Link> */}
+          <RecipeSearchResult
+            recipeID={eachRecipe.id}
+            recipeTitle={eachRecipe.title}
+          />
         </div>
       )
     })
@@ -50,12 +53,9 @@ class RecipeSearch extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.searchRecipe}>
-
-          <h3>Look Up Recipe</h3>
-
-          <legend>Recipe</legend>
+      <div className="recipe-search-bar">
+        <h3>Look Up Recipe</h3>
+        <form className="recipe-search-form" onSubmit={this.searchRecipe}>
           <input value={this.state.recipeName}
             name="recipeName"
             onChange={this.handleChange}

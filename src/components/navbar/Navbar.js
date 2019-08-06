@@ -14,28 +14,28 @@ function Navbar(props) {
 
   return (
     <div className="Navbar">
-      <h3>Navbar</h3>
-      <ul>
-        <li><NavLink to="/main">Main Page</NavLink></li>
-        <li><NavLink to="/recipes">Recipes</NavLink></li>
-        <li><NavLink to="/cart">Cart</NavLink></li>
+      <div>
+        <span>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/cart">Cart</NavLink>
+        </span>
+      </div>
 
+      <div>
         {!props.theUser &&
           <span>
-            <li><NavLink to="/login">Login</NavLink></li>
-            <li><NavLink to="/signup">Signup</NavLink></li>
+            <NavLink to="/login">Login</NavLink>
+            <NavLink to="/signup">Signup</NavLink>
           </span>
         }
-      </ul>
-      {props.theUser &&
-        <span>
-          <button onClick={doTheLogout} >Log Out </button>
-          <span>Hello, {props.theUser.username}</span>
-        </span>
-      }
 
-
-      <hr />
+        {props.theUser &&
+          <span>
+            <span>{props.theUser.username}</span>
+            <button onClick={doTheLogout} >Log Out </button>
+          </span>
+        }
+      </div>
     </div>
   );
 
