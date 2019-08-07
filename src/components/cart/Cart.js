@@ -9,28 +9,35 @@ class Cart extends React.Component {
     this.state = {
       cartIngredients: [],
       cartRecipes: [],
+      ready: false,
     }
     this.cartService = new CartService()
   }
 
-  getCartIngredients = () => {
-    this.cartService.grabIngredients()
-      .then((allIngredients) => {
-        this.setState({ cartIngredients: allIngredients })
-      })
-  }
+  // getCartIngredients = () => {
+  //   this.cartService.grabIngredients()
+  //     .then((allIngredients) => {
+  //       this.setState({ cartIngredients: allIngredients })
+  //     })
+  // }
 
   getUsersCart = () => {
     this.cartService.grabUserAndCart()
       .then((theUsersInfo) => {
-        // console.log(theUsersInfo.cart)
+        console.log(theUsersInfo)
         this.setState({ cartRecipes: theUsersInfo.cart })
       })
   }
 
+  isReady = () => {
+    this.setState({ ready: true })
+  }
+
   componentDidMount() {
-    this.getCartIngredients();
+    // this.getCartIngredients();
     this.getUsersCart();
+    this.isReady();
+
   }
 
   displayCartRecipes = () => {
@@ -44,11 +51,18 @@ class Cart extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.displayCartRecipes()}
-      </div>
-    )
+    if (this.state.ready)
+      return (
+        <div>
+          {this.displayCartRecipes()}
+          {/* Testing */}
+        </div>
+      )
+    else {
+      return (
+        <div>Loading</div>
+      )
+    }
   }
 }
 

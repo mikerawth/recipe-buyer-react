@@ -21,12 +21,17 @@ class CartService {
 
 
   grabUserAndCart = () => {
-    return this.service.get('/usersCart')
+    return this.service.post('/usersCart')
       .then(response => response.data)
   }
 
   grabIngredientInfo = (ingID) => {
-    return this.service.get(`/recipeIng/${ingID}`)
+    return this.service.get(`/ing/${ingID}`)
+      .then(response => response.data)
+  }
+
+  toggleIngredient = (ingID, currentStatus) => {
+    return this.service.post(`/ing/toggle/`, { ingID, currentStatus })
       .then(response => response.data)
   }
 }

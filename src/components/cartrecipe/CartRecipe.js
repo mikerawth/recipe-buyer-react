@@ -15,14 +15,15 @@ class CartRecipe extends React.Component {
   displayRecipeIngredients = () => {
     return this.state.recipeIngredients.map((eachIng) => {
       return (
-        <div className="ingredient-listing" key={eachIng}>
-          <CartIngredient ingredientID={eachIng} />
+        <div className="ingredient-listing" key={eachIng._id}>
+          <CartIngredient eachIng={eachIng} />
         </div>
       )
     })
   }
 
   render() {
+    // console.log(this.state.recipeIngredients)
     return (
       <div className="cart-recipe">
         <div className="cart-recipe-header"><h3>{this.state.recipeName}</h3></div>
