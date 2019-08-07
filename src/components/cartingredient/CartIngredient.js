@@ -1,6 +1,8 @@
 import React from 'react'
 import CartService from '../../services/CartService'
 
+import './cartingredient.css'
+
 
 class CartIngredient extends React.Component {
   constructor(props) {
@@ -27,16 +29,19 @@ class CartIngredient extends React.Component {
       ingUsUnit: this.props.eachIng.usUnit,
       ingMetAmount: this.props.eachIng.metricAmount,
       ingMetUnit: this.props.eachIng.metricUnit,
+      ready: false,
+
     })
+  }
+
+  isReady = () => {
+    this.setState({ ready: true })
   }
 
   componentDidMount() {
     this.getRecipeIngredients();
+    this.isReady();
   }
-
-  // handleChange = (e) => {
-  //   this.setState({ [e.target.name]: e.target.value })
-  // }
 
   checkBoxToggle = () => {
     this.cartService.toggleIngredient(this.state.id, this.state.ingInclude)
@@ -69,24 +74,30 @@ class CartIngredient extends React.Component {
 
   displayRecipeIngredients = () => {
     return (
-      <span>
-        {this.ingredientCheckBox()}
-        <span>{this.state.ingName}</span>
-        {/* <span>{this.state.ingUsAmount}</span>
-        <span>{this.state.ingUsUnit}</span>
-        <span>{this.state.ingMetAmount}</span>
-        <span>{this.state.ingMetUnit}</span>
-        <span>{this.state.ingCost}</span> */}
-      </span>
+      <div className="ing-listing d-flex">
+        <div className="ing">{this.ingredientCheckBox()}</div>
+        <div className="ing ing-name">{this.state.ingName}</div>
+        <div className="ing ing-amount">{this.state.ingUsAmount}</div>
+        <div className="ing ing-unit">{this.state.ingUsUnit}</div>
+        {/* <div>{this.state.ingMetAmount}</div>
+        <div>{this.state.ingMetUnit}</div> */}
+        <div className="ing ing-cost">{this.state.ingCost}</div>
+      </div>
     )
   }
 
   render() {
-    return (
-      <div className="ingredient-listing">
-        {this.displayRecipeIngredients()}
-      </div>
-    )
+    if (this.state.ready)
+      return (
+        <div className="ing-listing-container">
+          {this.displayRecipeIngredients()}
+        </div>
+      )
+    else {
+      return (
+        <div>Loading Recipe</div>
+      )
+    }
   }
 }
 export default CartIngredient;

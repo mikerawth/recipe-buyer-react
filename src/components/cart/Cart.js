@@ -14,13 +14,6 @@ class Cart extends React.Component {
     this.cartService = new CartService()
   }
 
-  // getCartIngredients = () => {
-  //   this.cartService.grabIngredients()
-  //     .then((allIngredients) => {
-  //       this.setState({ cartIngredients: allIngredients })
-  //     })
-  // }
-
   getUsersCart = () => {
     this.cartService.grabUserAndCart()
       .then((theUsersInfo) => {
@@ -60,7 +53,7 @@ class Cart extends React.Component {
       )
     else {
       return (
-        <div>Loading</div>
+        <div>Loading Cart</div>
       )
     }
   }
